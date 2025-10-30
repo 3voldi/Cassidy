@@ -435,12 +435,7 @@ export class OutputClass implements OutputProps {
       }
       return this.addReactionListener(this.LASTID, emojiOrListener);
     }
-    return this.api.setMessageReaction(
-      emojiOrListener,
-      mid,
-      (_err) => {},
-      true
-    );
+    this.api.setMessageReaction(emojiOrListener, mid, (_err) => {}, true);
   }
 
   /**
