@@ -219,7 +219,7 @@ const home = new BriefcaseAPI(
       description: "Get an item template by category.",
       aliases: ["temp", "tmp"],
       args: ["<category>"],
-      async handler({ output }, extra) {
+      async handler({ output }, extra, bc) {
         const cat = extra.spectralArgs[0];
         const item = itemTemplate.find(
           (i) => `${i.category}`.toLowerCase() === `${cat || ""}`.toLowerCase()
@@ -227,14 +227,19 @@ const home = new BriefcaseAPI(
         if (!cat || !item) {
           return output.reply(
             `📄 Please provide the template category ID as argument, here are the categories:\n\n${itemTemplate
-              .map((i) => `${UNISpectra.disc} ${i.category}`)
+              .map(
+                (i) =>
+                  `${UNISpectra.disc} "${i.category}" - ${bc.listItem(i.data)}`
+              )
               .join("\n")}`
           );
         }
         return output.reply(
           `📄 **${cat.toTitleCase()}**\n\n💡 **Guide:**\nThe key is the item ID for typing, name is the item name for listing, icon is the item emoji, flavorText is the item description. Sell price is briefcase sell price (must be lower than half of it's shop price), shop price is the price in the community shop.\n${
             item.guide
-          }\n\n**Customize this JSON DATA**:\n\n${JSON.stringify(
+          }\n\n**Preview:**\n${bc.listItem(
+            item.data
+          )}\n\n**Customize this JSON DATA**:\n\n${JSON.stringify(
             item.data,
             null,
             2
