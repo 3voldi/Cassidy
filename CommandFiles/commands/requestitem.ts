@@ -41,7 +41,7 @@ export const meta: CommandMeta = {
   description:
     "Request, approve, buy, sell your and the community's custom items!",
   author: "Liane Cagara",
-  version: "2.2.2",
+  version: "2.2.3",
   category: "Shopping",
   role: 0,
   waitingTime: 1,
@@ -1180,21 +1180,23 @@ const home = new BriefcaseAPI(
           propKey
         ];
         approved ??= [];
-        const itemData: ShopItem[] = approved.map((i) => {
-          return {
-            flavorText: i.flavorText,
-            icon: i.icon,
-            key: i.key,
-            name: i.name,
-            price: i.shopPrice,
-            onPurchase({ moneySet }) {
-              moneySet.inventory.push({
-                ...i,
-                uuid: Inventory.generateUUID(),
-              });
-            },
-          };
-        });
+        const itemData: ShopItem[] = approved
+          .filter((i) => i.approved)
+          .map((i) => {
+            return {
+              flavorText: i.flavorText,
+              icon: i.icon,
+              key: i.key,
+              name: i.name,
+              price: i.shopPrice,
+              onPurchase({ moneySet }) {
+                moneySet.inventory.push({
+                  ...i,
+                  uuid: Inventory.generateUUID(),
+                });
+              },
+            };
+          });
 
         const shop = new UTShop({
           itemData,

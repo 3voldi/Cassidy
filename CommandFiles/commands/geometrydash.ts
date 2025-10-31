@@ -46,7 +46,7 @@ const levelTracker = new BackgroundTaskFB<Map<string, LevelTrackerCache>>({
           const comments = await GDBrowserAPI.comments(level.id, { page: 0 });
           const recognized = cache?.recognizedComments ?? [];
           const newComments = comments.filter(
-            (c) => !recognized.includes(c.ID)
+            (c) => !recognized.includes(c.content)
           );
           const newCommentsList = newComments
             .slice(0, 8)
@@ -86,7 +86,7 @@ const levelTracker = new BackgroundTaskFB<Map<string, LevelTrackerCache>>({
           task.state.set(levelID, {
             likes: level.likes,
             downloads: level.downloads,
-            recognizedComments: comments.slice(0, 8).map((c) => c.ID),
+            recognizedComments: comments.slice(0, 16).map((c) => c.content),
             name: level.name,
             author: level.author,
           });
@@ -115,7 +115,7 @@ const gdcmd = defineCommand({
     otherNames: ["dash", "geometrydash", "gdbrowser"],
     category: "Media",
     description: "Anything related to GDBrowser.",
-    version: "1.1.5",
+    version: "1.1.6",
     icon: "🛠️",
     author: "@lianecagara",
   },
