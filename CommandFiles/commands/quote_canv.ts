@@ -67,6 +67,24 @@ export async function entry({
       height: canv.height,
     });
 
+    const gradient = canv.tiltedGradient(
+      canv.width,
+      canv.height / 2,
+      Math.PI / 2,
+      [
+        [0, "transparent"],
+        [1, "black"],
+      ]
+    );
+
+    canv.drawBox({
+      left: 0,
+      top: canv.height / 2,
+      width: canv.width,
+      height: canv.height / 2,
+      fill: gradient,
+    });
+
     canv.drawText(quoteText, {
       align: "center",
       vAlign: "top",

@@ -23,7 +23,7 @@ import { join } from "path";
 import { v4 } from "uuid";
 import { countEmojis } from "./unisym";
 
-export class CanvCass {
+export class CanvCass implements CanvCass.Rect {
   static registerFont(font: CanvCass.Font) {
     CanvCass.fonts.registerFromPath(font.path, font.name);
   }
