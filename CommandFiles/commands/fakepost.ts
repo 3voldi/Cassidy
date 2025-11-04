@@ -75,6 +75,7 @@ export async function entry({
       });
       const lw = "rgba(173, 177, 180, 1)";
       const pfps = 70;
+      const buttonss = 55;
       const margin = 20;
       const margin2 = 10;
       const ym = 3;
@@ -194,6 +195,30 @@ export async function entry({
           yMargin: 5,
         });
       });
+
+      const footer = CanvCass.createRect({
+        height: buttonss + margin * 2,
+        width: canv.width,
+        centerX: canv.centerX,
+        top: wallImg.bottom + margin,
+      });
+
+      const amount = 3;
+      const bsp = 15;
+      const btw = (canv.width - (amount + 1) * bsp) / amount;
+      for (let i = 0; i < amount; i++) {
+        const rect = CanvCass.createRect({
+          left: canv.left + i * (btw + bsp) + bsp,
+          width: btw,
+          height: buttonss,
+          centerY: footer.centerY,
+        });
+        canv.drawBox({
+          fill: "rgba(55, 59, 58, 1)",
+          rect,
+          cornerRadius: rect.height / 2,
+        });
+      }
 
       await output.reply({
         body: `💬 Fake post from ***${name}***:`,
