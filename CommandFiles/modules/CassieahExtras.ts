@@ -877,9 +877,19 @@ export class CanvCass implements CanvCass.Rect {
       ty += lineHeight * direction;
     }
 
+    let modY = y;
+
+    if (vAlign === "top") {
+      modY += size;
+    }
+
+    if (vAlign === "bottom") {
+      modY -= size;
+    }
+
     const rect = CanvCass.createRect({
       width: maxWidth,
-      height: Math.abs(y - tx),
+      height: Math.abs(modY - linePos.at(-1)[1]),
       ...(breakTo === "bottom"
         ? {
             top: origY,

@@ -5,7 +5,7 @@ export const meta: CommandMeta = {
   name: "snews",
   description: "Generate a satire news image via CanvCass",
   author: "Liane Cagara",
-  version: "1.0.3",
+  version: "1.0.5",
   usage: "{prefix}{name} <headline> | [url]",
   category: "Media",
   permissions: [0],
@@ -43,7 +43,7 @@ export async function entry({
     );
   }
 
-  if (!usersDB.isNumKey(uid)) {
+  if (!usersDB.isNumKey(uid) && !input.isAdmin) {
     return output.reply("❌ Only Facebook users can use this command.");
   }
 
@@ -113,7 +113,7 @@ export async function entry({
         vAlign: "top",
         baseline: "middle",
         fontType: "cbold",
-        size: 35,
+        size: 38,
         fill: "white",
         x: headlineRect.left,
         breakTo: "top",
@@ -122,12 +122,17 @@ export async function entry({
         yMargin: 4,
       });
 
+      // canv.drawBox({
+      //   rect: headlineResult.rect,
+      //   fill: "rgba(255, 0, 0, 0.2)",
+      // });
+
       if (isBgDifferent || 1) {
         const cw = (canv.width - margin * 2) / 3;
 
         const circleBox = CanvCass.createRect({
           left: canv.left + margin,
-          bottom: headlineResult.rect.bottom + headlineResult.lineHeight,
+          bottom: headlineResult.rect.top - headlineResult.lineHeight,
           width: cw,
           height: cw,
         });

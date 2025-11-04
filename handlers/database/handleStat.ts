@@ -20,6 +20,7 @@ import { Inventory } from "@cass-modules/InventoryEnhanced";
 import axios from "axios";
 import { queryObjects } from "@cass-modules/OBJQuery";
 import { IFCAU_User } from "@xaviabot/fca-unofficial";
+import { join } from "path";
 
 export type UserDataKV = Partial<
   {
@@ -799,7 +800,9 @@ export default class UserStatsManager {
       };
     }
   }
-  fallbackAva: "https://pixabay.com/get/g6b010603a8a419317f773ab371d97e9af1356abd642edf8e2603583713e3699fca8e923b2d119b1f00eaecb71c96b96b6075b4079e6644eae8c4dad5cc990db0af5ce8a33aacae3c00acd4167fd559fa_640.png";
+  fallbackAva2 =
+    "https://pixabay.com/get/g6b010603a8a419317f773ab371d97e9af1356abd642edf8e2603583713e3699fca8e923b2d119b1f00eaecb71c96b96b6075b4079e6644eae8c4dad5cc990db0af5ce8a33aacae3c00acd4167fd559fa_640.png";
+  fallbackAva = join(process.cwd(), "public", "broken.jpg");
   async ensureAvatarURL(uid: string, forceNew = false) {
     try {
       const user = await this.getCache(uid);
